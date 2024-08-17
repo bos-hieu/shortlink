@@ -27,7 +27,7 @@ func main() {
 			return
 		}
 
-		resp, err := usecase.CreateShortLink(req)
+		resp, err := usecase.CreateShortLink(context.Request.Context(), req)
 		if err != nil {
 			context.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
