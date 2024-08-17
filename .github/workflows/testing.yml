@@ -28,8 +28,6 @@ jobs:
         with:
           mongodb-version: 4.2
 
-      - uses: niden/actions-memcached@v7
-
       - name: Set up Go ${{ matrix.go }}
         uses: actions/setup-go@v5
         with:
