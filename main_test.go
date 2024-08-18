@@ -74,8 +74,8 @@ func TestAPIs(t *testing.T) {
 		}
 
 		// Get short link hash from response body
-		log.Println("Short link: ", responseBody.ShortLink)
 		shortLink := responseBody.ShortLink[len("localhost:8080/"):]
+		log.Println("Short link hash: ", shortLink)
 
 		// Test cases for getting short link
 		testCases := []*struct {

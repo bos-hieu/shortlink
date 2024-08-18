@@ -84,6 +84,7 @@ func initGinRouter() *gin.Engine {
 		})
 		if err != nil {
 			context.Redirect(http.StatusTemporaryRedirect, "/404")
+			return
 		}
 
 		context.Redirect(http.StatusTemporaryRedirect, resp.DestinationURL)
