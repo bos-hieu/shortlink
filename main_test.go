@@ -68,7 +68,7 @@ func TestAPIs(t *testing.T) {
 		}
 
 		if responseBody.ShortLink == "" {
-			t.Errorf("Expected short link is not empty, but got %s", responseBody.ShortLink)
+			t.Fatal("Expected short link is not empty, but got empty")
 		}
 
 		// Get short link hash from response body
