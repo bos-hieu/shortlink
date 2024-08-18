@@ -4,6 +4,8 @@
 This is a simple shortlink service is built with [Gin Gonic](https://github.com/gin-gonic/gin) framework, [MongoDB](https://www.mongodb.com/docs/drivers/go/current/quick-start/) and [Redis](https://github.com/redis/go-redis).
 
 ## Approach
+(The implementation of this approach is can be found in this [github repository](github.com/bos-hieu/shortlink)).
+
 From the requirements, we can see that the shortlink service needs to be able to redirect users based on their country and language. To achieve this, we can use the following approach:
 - Store the shortlink, country-specific destination URL, language-specific destination URL, and default destination URL in a database.
 - When a user enters a shortlink in the browser, the service will check the user's country and language and redirect the user to the appropriate destination URL.
@@ -20,9 +22,9 @@ From the requirements, we can see that the shortlink service needs to be able to
    - Step 7: The service then check the user's country and language and redirect the user to appropriate destination URL. 
    - Step 8: If the service cannot find appropriate destination URL, it will redirect the user to a not found page.
    
-   -> The service also caches the shortlink and destination URL in Redis to improve the performance of the service. 
+   -> <i>The service also caches the shortlink and destination URL in Redis to improve the performance of the service.</i> 
 
-   -> The response is then cached by the CDN service to reduce the latency of the service.
+   -> <i>The response is then cached by the CDN service to reduce the latency of the service.</i>
 
    ![shortlink high-level architect](assets/images/shortlink.png)
 
@@ -31,7 +33,7 @@ From the requirements, we can see that the shortlink service needs to be able to
 - A CDN service, such as Cloudflare or AWS CloudFront, to detect the user's country based on their IP address.
 - For the language detection, we can get the user's language from the browser settings by using the 'Accept-Language' header, which is sent by the browser with each HTTP request.
 - A database, we should use the no SQL database like MongoDB or Amazon DynamoDB to store data, because the system is read-heavy and requires fast read access to the data.
-- A caching system, such as Redis, to cache the read data and improve the performance of the service by reducing the number of database queries. We can also the the CDN service to cache the response and reduce the latency of the service.
+- A caching system, such as Redis, to cache the read data and improve the performance of the service by reducing the number of database queries. We can also use the CDN service to cache the response and reduce the latency of the service.
 - To build the service, in the backend, we can use the Gin Gonic framework, which is a lightweight web framework for building APIs in Golang programming language.
 - For the frontend, we can use a simple HTML and JavaScript to create the user interface for creating and using the shortlink.
 - We can also use a CI/CD system, such as GitHub Actions, Terraform, GitLab runner, AWS CodePipeline, to automate the deployment of the service and ensure that the code is tested and deployed in a consistent and reliable manner.
