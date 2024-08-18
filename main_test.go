@@ -58,6 +58,8 @@ func TestAPIs(t *testing.T) {
 		postStatusCode := 200
 		if w.Code != postStatusCode {
 			t.Errorf("Expected status code is %d, but got %d", postStatusCode, w.Code)
+			t.Log("Response body: ", w.Body.String())
+			t.FailNow()
 		}
 
 		// parse the response body to entities.CreateShortLinkResponse
