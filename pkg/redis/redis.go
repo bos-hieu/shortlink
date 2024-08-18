@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"github.com/redis/go-redis/v9"
+	"log"
 )
 
 var (
@@ -20,9 +21,10 @@ func InitClient() error {
 		Addr: "localhost:6379",
 	})
 
-	_, err := client.Ping(context.TODO()).Result()
+	result, err := client.Ping(context.TODO()).Result()
 	if err != nil {
 		return err
 	}
+	log.Println("Redis client is connected: ", result)
 	return nil
 }

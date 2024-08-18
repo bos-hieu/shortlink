@@ -29,6 +29,11 @@ func InitClient() error {
 		return err
 	}
 
+	err = newClient.Ping(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+
 	client = newClient
 	return nil
 }
