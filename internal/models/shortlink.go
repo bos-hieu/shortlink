@@ -12,9 +12,11 @@ type (
 		ShortLink string `bson:"short_link"`
 
 		// DefaultDestinationURL is the default URL to redirect to if no other rules are matched
+		// This field will be indexed by unique to increase read performance.
 		DefaultDestinationURL string `bson:"default_destination_url"`
 
 		// DestinationURLsByCountry is a map of country codes to destination URLs
+		// The country codes are in ISO 3166-1 alpha-2 format, for example: US, GB, FR, etc.
 		DestinationURLsByCountry map[string]string `bson:"destination_urls_by_country"`
 
 		// DestinationURLsByLanguageCountry is a map of language codes to destination URLs
