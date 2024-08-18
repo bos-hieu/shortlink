@@ -1,2 +1,6 @@
 .idea
 
+# test output files
+coverage.out
+coverage.html
+

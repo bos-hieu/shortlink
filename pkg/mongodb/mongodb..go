@@ -4,29 +4,31 @@ import (
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"sync"
+	"os"
 )
 
 var (
 	client *mongo.Client
-	once   sync.Once
 )
 
 // GetClient returns a mongo client instance
 func GetClient() *mongo.Client {
-	if client == nil {
-		once.Do(func() {
-			serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-			url := "mongodb://localhost:27017"
-			opts := options.Client().ApplyURI(url).SetServerAPIOptions(serverAPI)
-			newClient, err := mongo.Connect(context.TODO(), opts)
-			if err != nil {
-				panic(err)
-			}
+	return client
+}
 
-			client = newClient
-		})
+// InitClient initializes a mongo client instance
+func InitClient() error {
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	url := "mongodb://localhost:27017"
+	if os.Getenv("MONGO_URL") != "" {
+		url = os.Getenv("MONGO_URL")
+	}
+	opts := options.Client().ApplyURI(url).SetServerAPIOptions(serverAPI)
+	newClient, err := mongo.Connect(context.TODO(), opts)
+	if err != nil {
+		return err
 	}
 
-	return client
+	client = newClient
+	return nil
 }

@@ -32,6 +32,13 @@ func (a *ShortLink) SetFields(options ...ShortLinkOption) {
 	}
 }
 
+// WithID sets the ID
+func (a ShortLink) WithID() ShortLinkOption {
+	return func(a *ShortLink) {
+		a.ID = primitive.NewObjectID()
+	}
+}
+
 // WithShortLink sets the short link
 func (a ShortLink) WithShortLink(shortLink string) ShortLinkOption {
 	return func(a *ShortLink) {
@@ -47,7 +54,7 @@ func (a ShortLink) WithDefaultDestinationURL(defaultDestinationURL string) Short
 }
 
 // WithDestinationURLsByCountry sets the destination URL for specific countries
-func (a ShortLink) WithDestinationURLsByCountry(destinationURLsByCountry map[string]string ) ShortLinkOption {
+func (a ShortLink) WithDestinationURLsByCountry(destinationURLsByCountry map[string]string) ShortLinkOption {
 	return func(a *ShortLink) {
 		a.DestinationURLsByCountry = destinationURLsByCountry
 	}
@@ -69,7 +76,7 @@ func (a ShortLink) GetDestinationURL(countryCode, languageCode string) string {
 	}
 
 	if a.DestinationURLsByCountry != nil && countryCode != "" {
-		destinationURL, hasURL := a.DestinationURLsByLanguageCountry[languageCode]
+		destinationURL, hasURL := a.DestinationURLsByCountry[countryCode]
 		if hasURL {
 			return destinationURL
 		}

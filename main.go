@@ -3,12 +3,36 @@ package main
 import (
 	"github.com/bos-hieu/shortlink/internal/entities"
 	"github.com/bos-hieu/shortlink/internal/usecase"
+	"github.com/bos-hieu/shortlink/pkg/mongodb"
+	"github.com/bos-hieu/shortlink/pkg/redis"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func main() {
+	initClients()
+	router := initGinRouter()
+	err := router.Run()
+	if err != nil {
+		panic(err)
+	}
+}
 
+// initClients initializes clients
+func initClients() {
+	err := mongodb.InitClient()
+	if err != nil {
+		panic(err)
+	}
+
+	err = redis.InitClient()
+	if err != nil {
+		panic(err)
+	}
+}
+
+// initGinRouter initializes gin router
+func initGinRouter() *gin.Engine {
 	router := gin.Default()
 
 	router.GET("/ping", func(c *gin.Context) {
@@ -54,8 +78,8 @@ func main() {
 		}
 
 		resp, err := usecase.GetShortLink(context.Request.Context(), &entities.GetShortLinkRequest{
-			ShortLink: shortLink,
-			CountryCode: context.Request.Header.Get("CF-IPCountry"), // example get country code from cloudflare
+			ShortLink:    shortLink,
+			CountryCode:  context.Request.Header.Get("CF-IPCountry"), // example get country code from cloudflare
 			LanguageCode: context.Request.Header.Get("Accept-Language"),
 		})
 		if err != nil {
@@ -65,8 +89,5 @@ func main() {
 		context.Redirect(http.StatusTemporaryRedirect, resp.DestinationURL)
 	})
 
-	err := router.Run()
-	if err != nil {
-		panic(err)
-	}
+	return router
 }
