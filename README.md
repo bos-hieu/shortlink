@@ -4,7 +4,7 @@
 This is a simple shortlink service is built with [Gin Gonic](https://github.com/gin-gonic/gin) framework, [MongoDB](https://www.mongodb.com/docs/drivers/go/current/quick-start/) and [Redis](https://github.com/redis/go-redis).
 
 ## Approach
-(The implementation of this approach is can be found in this [github repository](github.com/bos-hieu/shortlink)).
+(The implementation of this approach can be found in this [github repository](github.com/bos-hieu/shortlink)).
 
 From the requirements, we can see that the shortlink service needs to be able to redirect users based on their country and language. To achieve this, we can use the following approach:
 - Store the shortlink, country-specific destination URL, language-specific destination URL, and default destination URL in a database.
